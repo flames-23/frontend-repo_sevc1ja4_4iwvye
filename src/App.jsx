@@ -1,28 +1,35 @@
-import { useState } from 'react'
+import { useEffect } from 'react';
+import Hero from './components/Hero';
+import About from './components/About';
+import Services from './components/Services';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
-  const [count, setCount] = useState(0)
+  useEffect(() => {
+    // Google Analytics basic page view (replace with real GA ID in production)
+    if (typeof window !== 'undefined' && !window.__ga_initialized) {
+      window.__ga_initialized = true;
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX';
+      document.head.appendChild(script);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);} // eslint-disable-line
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXX');
+    }
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-black text-white selection:bg-amber-400/30 selection:text-white">
+      <Hero />
+      <About />
+      <Services />
+      <Contact />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
